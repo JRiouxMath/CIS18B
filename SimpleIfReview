@@ -1,0 +1,80 @@
+/*
+ * Jeanine Rioux  2/28/17
+ * CIS 18B  continuing to review Ch 1-11
+ */
+package simple_if_review;
+
+import java.util.Scanner;
+
+public class Simple_if_review {
+
+    public static void main(String[] args) {
+        int value;
+        
+        Scanner kb = new Scanner(System.in);
+        
+        System.out.print("Enter as an integer value: ");
+        value  = kb.nextInt();
+     
+    /*  first iteration - simple if
+     *   second iteration - if else
+        if (value >= 0)
+            System.out.println("Value is greater than or equal to zero");
+        else
+            System.out.println("Value is less than zero");
+            
+     
+     //third iteration - nested if
+        if (value == 0)
+            System.out.println("Value is equal to zero");
+        else if (value <0)
+            System.out.println("Value is less than zero.");
+        else
+            System.out.println("Value is greater than zero.");
+     
+    
+    // Switch and case
+    
+    switch(value)
+    {
+        case 0:
+        case 2:
+        case 4:
+            System.out.println("line 41 executed....");
+            break;
+            
+        case -1:
+        case -2:
+            System.out.println("line 45 executed....");
+            break;   
+            
+        default:
+            System.out.println("line 49 executed....");
+    
+    }//end switch
+
+
+
+    //While loop example
+    
+    while ( value >0)
+    {
+        System.out.printf("Value = %d%n", value);
+        value--;
+    } // end while
+
+*/
+    
+    // do while example
+    
+    do
+    {
+        System.out.printf("Value = %d%n", value);
+        value--;
+    } while ( value >0);
+
+
+    
+    }//end main method
+    
+}// end class
