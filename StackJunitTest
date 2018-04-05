@@ -1,0 +1,145 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package stack;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author rcc
+ */
+public class StackTest {
+    
+    public StackTest() {
+    }
+    
+    @Test
+    public void testNullPeek() {
+        System.out.println("Testing Null Peek");
+        Stack<Integer> si = new Stack<>();
+        assertEquals(si.peek(), null);
+        
+    }
+    /**
+     * Test of push method, of class Stack.
+     */
+    @Test
+    public void testPush() {
+        System.out.println("Testing Push");
+        Stack<Integer> si = new Stack<>();
+        si.push(100);
+        assertEquals(si.peek(), new Integer(100)); // careful wi/Integer vs int    
+    }
+    
+    @Test
+    public void testPop() {
+        System.out.println("Testing Pop");
+        Stack<Integer> si = new Stack<>();
+        si.push(100);
+        assertEquals(si.pop(), new Integer(100));
+        
+    }
+    
+    @Test
+    public void testNullPop() {
+        System.out.println("Testing Null Pop");
+        Stack<Integer> si = new Stack<>();
+        assertEquals(si.pop(), null);
+        
+    }
+     @Test
+    public void testPushesPeeksPops(){
+        System.out.println("Testing PPp");
+        Stack<Integer> si = new Stack<>();
+        si.push(100);
+        assertEquals(si.peek(), new Integer(100));
+        si.push(120);
+        assertEquals(si.peek(), new Integer(120));
+        assertEquals(si.pop(), new Integer(120));
+        assertEquals(si.peek(), new Integer(100));
+        assertEquals(si.pop(), new Integer(100));
+        assertEquals(si.peek(), null);
+       
+    }
+
+    /**
+     * Test of peek method, of class Stack.
+     
+    @Test
+    public void testPeek() {
+        System.out.println("peek");
+        Stack instance = new Stack();
+        Object expResult = null;
+        Object result = instance.peek();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of pop method, of class Stack.
+     *
+    @Test
+    public void testPop() {
+        System.out.println("pop");
+        Stack instance = new Stack();
+        Object expResult = null;
+        Object result = instance.pop();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isEmpty method, of class Stack.
+     *
+    @Test
+    public void testIsEmpty() {
+        System.out.println("isEmpty");
+        Stack instance = new Stack();
+        boolean expResult = false;
+        boolean result = instance.isEmpty();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of clear method, of class Stack.
+     *
+    @Test
+    public void testClear() {
+        System.out.println("clear");
+        Stack instance = new Stack();
+        instance.clear();
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of display method, of class Stack.
+     *
+    @Test
+    public void testDisplay() {
+        System.out.println("display");
+        Stack instance = new Stack();
+        instance.display();
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class Stack.
+     *
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Stack instance = new Stack();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+    
+  **/  
+    
+}
