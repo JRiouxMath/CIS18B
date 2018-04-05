@@ -1,0 +1,39 @@
+
+package javaapplication1;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+/**
+ *
+ *Jeanine Rioux CSC 18A
+ * 4/4/18
+ * Class code along
+ */
+public class JavaApplication1 {
+
+   
+    public static void main(String[] args) {
+       String text = " This is the text that is to be searched " +
+                "for occurrences of the words starting with t and ending with t.";
+       
+       
+       
+       //String regex = "is";
+       //String regex = "(?i)t";
+       //String regex = "(?i)\\bt[a-su-z]+t\\b";
+       String regex = "(?i)\\bt\\w{3}\\b";
+       
+       
+       Pattern pattern = Pattern.compile(regex);
+       Matcher matcher = pattern.matcher(text);
+       
+       int count = 0;
+       while (matcher.find())
+       {
+            count++;
+       System.out.println("found: " + count + " : "
+            + matcher.start() + " - "  + (matcher.end()-1));
+       }
+    }
+    
+}
