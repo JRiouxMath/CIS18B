@@ -1,0 +1,51 @@
+package binaryfileread;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class BinaryFileRead {
+
+    public static void main(String[] args) {
+        // this sample program reads the binary file called binary_data.dat that
+        // was created by BinaryFileWrite project.
+        
+        try (ObjectInputStream inFile = new ObjectInputStream(new FileInputStream("binary_data.dat"))) {
+
+            int a_byte;
+            boolean a_bool_1, a_bool_2;
+            String chars;
+            int an_int;
+            long a_long;
+            float a_float;
+            double a_double;
+            short a_short;
+            
+            a_byte = inFile.readByte(); // read binary representation of 110 as byte from file.
+            a_bool_1 = inFile.readBoolean(); // read binary representation of boolean true from file.            
+            chars = inFile.readUTF(); // read binary representation from UTF-8 string to file.
+            a_bool_2 = inFile.readBoolean(); // read binary representation of boolean false from file.
+            an_int = inFile.readInt(); // read binary representation of 1100123 as 32 bit int from file.
+            a_long = inFile.readLong();// read binary representation of 123456789012 as 64 bit long from file.
+            a_float = inFile.readFloat(); // read binary representation of 3.14159265 (IEEE 754 32 bit FLOAT) from file.
+            a_double = inFile.readDouble(); // read binary representation of 3.14159265 (IEEE 754 64 bit DOUBLE) from file.
+            a_short = inFile.readShort(); // read binary representation of 28150 as short int (16 bit/2 bytes) from file.
+            inFile.close();
+            System.out.printf("File: binary_data.dat successfully read, here is the data:%n%n");                        
+            System.out.printf("    Byte: %d%n",a_byte);
+            System.out.printf(" Boolean: %b%n",a_bool_1);
+            System.out.printf("  String: %s%n",chars);
+            System.out.printf(" Boolean: %b%n",a_bool_2);
+            System.out.printf(" Integer: %18d%n",an_int);
+            System.out.printf("    Long: %18d%n",a_long);
+            System.out.printf("   Float: %18.8f%n",a_float);
+            System.out.printf("  Double: %18.8f%n",a_double);
+            System.out.printf("ShortInt: %18d%n",a_short);
+        }        
+        catch(IOException e)
+        {
+            System.out.printf("Exception: %s caught%n",e.getMessage());
+        }
+    }
+    
+}
