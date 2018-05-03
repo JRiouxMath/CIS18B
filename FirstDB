@@ -1,0 +1,16 @@
+DROP TABLE Cars;
+
+CREATE TABLE Cars
+(
+  CarID INT NOT NULL GENERATED ALWAYS AS IDENTITY,
+  CarMake VARCHAR (10) NOT NULL,
+  CarModel VARCHAR (15) NOT NULL,
+  CarYear VARCHAR (4) NOT NULL,
+  CarMileage DECIMAL (6) NOT NULL
+);
+
+INSERT INTO Cars (CarMake, CarModel, CarYear, CarMileage)
+VALUES ('Honda', 'Civic', '1998', 135647),
+      ('Honda', 'Accord', '2009', 46877),  --order must match those in create like a constructor
+      ('Nissan', 'Pickup', '1997', 235444);
+
