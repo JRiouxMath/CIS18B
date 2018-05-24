@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SimpleSchool.FXMLDocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="411.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="67.0" layoutY="225.0" text="Student ID:" />
+      <Label layoutX="20.0" layoutY="257.0" text="Student Firstname:" />
+      <Label layoutX="20.0" layoutY="294.0" text="Student Lastname:" />
+      <Label layoutX="46.0" layoutY="327.0" text="Student Email:" />
+      <Label layoutX="43.0" layoutY="362.0" text="Student Phone:" />
+      <TextField fx:id="stu_id" layoutX="145.0" layoutY="220.0" prefHeight="27.0" prefWidth="279.0" />
+      <TextField fx:id="stu_fname" layoutX="145.0" layoutY="252.0" prefHeight="27.0" prefWidth="279.0" />
+      <TextField fx:id="stu_lname" layoutX="145.0" layoutY="289.0" prefHeight="27.0" prefWidth="279.0" />
+      <TextField fx:id="stu_email" layoutX="145.0" layoutY="322.0" prefHeight="27.0" prefWidth="279.0" />
+      <TextField fx:id="stu_phone" layoutX="145.0" layoutY="357.0" prefHeight="27.0" prefWidth="279.0" />
+      <Button fx:id="addButton" layoutX="145.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleAddButton" text="Add" />
+      <Button fx:id="updateButton" layoutX="195.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleUpdateButton" text="Update" />
+      <Button fx:id="deleteButton" layoutX="361.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
+    </children>
+</AnchorPane>
