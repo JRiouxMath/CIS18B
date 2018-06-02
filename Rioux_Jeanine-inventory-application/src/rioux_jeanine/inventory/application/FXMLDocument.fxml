@@ -6,14 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="634.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rioux_jeanine.inventory.application.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="634.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rioux_jeanine.inventory.application.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <SplitPane dividerPositions="0.5268987341772152" layoutX="6.0" orientation="VERTICAL" prefHeight="634.0" prefWidth="465.0">
+      <SplitPane dividerPositions="0.5268987341772152" layoutX="-1.0" orientation="VERTICAL" prefHeight="634.0" prefWidth="638.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="463.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="510.0">
                <children>
-                  <TableView fx:id="InventTblView" prefHeight="200.0" prefWidth="463.0">
+                  <TableView fx:id="InventTblView" prefHeight="200.0" prefWidth="636.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -21,25 +21,26 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="463.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="261.0" prefWidth="636.0">
                <children>
-                  <Label layoutX="21.0" layoutY="19.0" text="Product ID" />
-                  <TextField fx:id="ProdID" layoutX="97.0" layoutY="14.0" prefHeight="31.0" prefWidth="116.0" />
-                  <Label layoutX="35.0" layoutY="61.0" text="Name" />
-                  <TextField fx:id="ItemName" layoutX="97.0" layoutY="56.0" prefWidth="200.0" />
-                  <TextArea fx:id="Description" layoutX="97.0" layoutY="102.0" prefHeight="61.0" prefWidth="344.0" />
+                  <Label layoutX="20.0" layoutY="19.0" text="Product ID" />
+                  <TextField fx:id="ProdID" editable="false" focusTraversable="false" layoutX="95.0" layoutY="14.0" prefHeight="31.0" prefWidth="116.0" />
+                  <Label layoutX="351.0" layoutY="19.0" text="Name" />
+                  <Label layoutX="29.0" layoutY="61.0" text="Quantity" />
+                  <TextField fx:id="ItemName" layoutX="399.0" layoutY="14.0" prefWidth="200.0" />
+                  <TextField fx:id="Count" layoutX="95.0" layoutY="56.0" prefHeight="31.0" prefWidth="69.0" />
+                  <TextField fx:id="Cost" layoutX="225.0" layoutY="56.0" prefHeight="31.0" prefWidth="94.0" />
+                  <TextField fx:id="SKU" layoutX="399.0" layoutY="56.0" prefHeight="31.0" prefWidth="116.0" />
+                  <TextArea fx:id="Description" layoutX="97.0" layoutY="102.0" prefHeight="61.0" prefWidth="500.0" />
                   <Label layoutX="17.0" layoutY="102.0" text="Description" />
-                  <TextField fx:id="Count" layoutX="388.0" layoutY="56.0" prefHeight="31.0" prefWidth="50.0" />
-                  <Label layoutX="320.0" layoutY="61.0" text="Quantity" />
-                  <TextField fx:id="Cost" layoutX="95.0" layoutY="180.0" prefHeight="31.0" prefWidth="94.0" />
-                  <Label layoutX="42.0" layoutY="185.0" text="Cost" />
-                  <TextField fx:id="SKU" layoutX="320.0" layoutY="180.0" prefHeight="31.0" prefWidth="116.0" />
-                  <Label layoutX="272.0" layoutY="185.0" text="SKU" />
-                  <Button fx:id="Btn_Del" layoutX="371.0" layoutY="240.0" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
-                  <Button fx:id="Btn_Export" layoutX="286.0" layoutY="240.0" mnemonicParsing="false" prefWidth="70.0" text="Export" />
-                  <Button fx:id="Btn_Update" layoutX="202.0" layoutY="240.0" mnemonicParsing="false" prefWidth="70.0" text="Update" />
-                  <Button fx:id="Btn_Search" layoutX="120.0" layoutY="240.0" mnemonicParsing="false" prefWidth="70.0" text="Search" />
-                  <Button fx:id="Btn_Add" layoutX="37.0" layoutY="240.0" mnemonicParsing="false" onAction="#AddButtonHandler" prefWidth="70.0" text="Add" />
+                  <Label layoutX="187.0" layoutY="61.0" text="Cost" />
+                  <Label layoutX="358.0" layoutY="61.0" text="SKU" />
+                  <Button fx:id="Btn_Del" layoutX="527.0" layoutY="189.0" mnemonicParsing="false" onAction="#DeleteButtonHandler" prefWidth="70.0" text="Delete" />
+                  <Button fx:id="Btn_Export" layoutX="337.0" layoutY="189.0" mnemonicParsing="false" prefWidth="70.0" text="Export" />
+                  <Button fx:id="Btn_Update" layoutX="251.0" layoutY="189.0" mnemonicParsing="false" onAction="#UpdateButtonHandler" prefWidth="70.0" text="Update" />
+                  <Button fx:id="Btn_Search" layoutX="43.0" layoutY="241.0" mnemonicParsing="false" prefWidth="70.0" text="Search" />
+                  <Button fx:id="Btn_Add" layoutX="167.0" layoutY="189.0" mnemonicParsing="false" onAction="#AddButtonHandler" prefWidth="70.0" text="Add" />
+                  <TextField fx:id="NameSearch" layoutX="132.0" layoutY="241.0" onAction="#SearchButtonHandler" prefHeight="31.0" prefWidth="229.0" promptText="Enter Item name to search for" />
                </children>
             </AnchorPane>
         </items>
