@@ -1,11 +1,13 @@
 /*
  * Strongly based on sample given by Prof. Conrad
- * "SiimpleSchoolDatabase"
+ * "SimpleSchoolDatabase"
  */
 package rioux_jeanine.inventory.application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,7 +36,7 @@ import javafx.util.Callback;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private TextField ItemName, Count, ProdID, SKU, Cost;
+    private TextField ItemName, Count, ProdID, SKU, Cost, NameSearch;
 
     @FXML
     private Button Btn_Export, Btn_Add, Btn_Search, Btn_Update, Btn_Del;
@@ -64,7 +66,7 @@ public class FXMLDocumentController implements Initializable {
         SKU.clear();
         Cost.clear();
         InventTblView.requestFocus();
-    }// end Add BTN Handlers
+    }// end Add BTN Handler
     
      private void fillTable()
     {
@@ -104,7 +106,60 @@ public class FXMLDocumentController implements Initializable {
         }// end catch block
     }// end private method filltable 
     
+    @FXML
+    private void DeleteButtonHandler(ActionEvent e)
+    {        
+        new InventoryDatabase().deleteItem(Integer.parseInt(ProdID.getText()));
+        fillTable();
+        ProdID.clear();
+        ItemName.clear();
+        Description.clear();
+        Count.clear();
+        SKU.clear();
+        Cost.clear();
+        InventTblView.requestFocus();
+    } // end method DeleteButtonHandler
     
+    @FXML
+    void SearchButtonHandler(ActionEvent event) { //this is all wrong.  copied from regex, still trying to adapt
+        
+/**        AltText.setText(FindItem(NameSearch.getText(), ItemName.getText(), ReplText.getText()));
+    }// end method SearchButtonHandler.  calls private method Replace String.
+    
+     private String FindItem (String SName, String IName)//This isn't searching all rows
+    {
+        Pattern regExPatt = Pattern.compile(SName);       
+        Matcher regExMatch = regExPatt.matcher(IName);
+        
+        if (regExMatch.find())
+        {
+            //Here is where it will populate like UPdateItem
+        }//end if find
+        
+        return origText + "\nNo replacement made";// probably delete and have void return?
+    }// end Method ReplaceString  only used by SearchButtonHandler
+    * 
+    **88888888888888 --------------Two methods commented out here, watch for extra close }
+    **/}
+    
+    
+    @FXML
+    private void UpdateButtonHandler(ActionEvent e)
+    {        
+        new InventoryDatabase().updateItem(Integer.parseInt(ProdID.getText()), ItemName.getText(),
+                                        Description.getText(), Integer.parseInt(Count.getText()),
+                                        SKU.getText(), Double.parseDouble(Cost.getText()));
+        fillTable();
+        ProdID.clear();
+        ItemName.clear();
+        Description.clear();
+        Count.clear();
+        SKU.clear();
+        Cost.clear();
+        InventTblView.requestFocus();
+    }
+    
+   
     
    @Override  
     public void initialize(URL url, ResourceBundle rb) {
