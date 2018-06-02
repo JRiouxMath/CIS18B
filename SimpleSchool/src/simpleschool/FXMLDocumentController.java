@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SimpleSchool;
+package trysimpleschool;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -38,11 +38,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML private TextField stu_id, stu_fname, stu_lname, stu_email, stu_phone;
     
     ObservableList items;
+    private int row_id;
     
     @FXML
     private void handleAddButton(ActionEvent e)
     {        
-        new Schooltable().addStudent(row_id, Integer.parseInt(stu_id.getText()), stu_lname.getText(),
+        new School_StudentTable().addStudent(Integer.parseInt(stu_id.getText()), stu_lname.getText(),
                                         stu_fname.getText(), stu_email.getText(), stu_phone.getText());
         fillTable();
         stu_id.clear();
@@ -56,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleUpdateButton(ActionEvent e)
     {        
-        new Schooltable().updateStudent(Integer.parseInt(stu_id.getText()), stu_lname.getText(),
+        new School_StudentTable().updateStudent(row_id,Integer.parseInt(stu_id.getText()), stu_lname.getText(),
                                         stu_fname.getText(), stu_email.getText(), stu_phone.getText());
         fillTable();
         stu_id.clear();
@@ -70,7 +71,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleDeleteButton(ActionEvent e)
     {        
-        new Schooltable().deleteStudent(Integer.parseInt(stu_id.getText()));
+        new School_StudentTable().deleteStudent(row_id);
         fillTable();
         stu_id.clear();
         stu_lname.clear();
@@ -85,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
         tableView.getColumns().clear();
         try 
         {
-            ResultSet rs = new Schooltable().getResults();
+            ResultSet rs = new School_StudentTable().getResults();
             ////////////////////////////////////////////////////////////////////////////
             for(int i=0;i<rs.getMetaData().getColumnCount();i++)
             {
@@ -120,7 +121,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         fillTable();
-        
+                
         tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
@@ -132,6 +133,7 @@ public class FXMLDocumentController implements Initializable {
                     int val = tablePosition.getRow();
                     Object row = items.get(val);
                     String[] a = row.toString().split("[,]|[\\]]");
+                    row_id = Integer.parseInt( a[0].substring(1) );
                     stu_id.setText(a[1].trim());
                     stu_lname.setText(a[2].trim());
                     stu_fname.setText(a[3].trim());
