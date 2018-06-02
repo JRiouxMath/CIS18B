@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SimpleSchool;
+package trysimpleschool;
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author paulconrad
  */
-public class SimpleSchool extends Application {
+public class TrySimpleSchool extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
