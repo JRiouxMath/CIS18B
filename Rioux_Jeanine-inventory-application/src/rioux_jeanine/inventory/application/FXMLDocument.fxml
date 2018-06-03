@@ -24,7 +24,6 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="261.0" prefWidth="636.0">
                <children>
                   <Label layoutX="20.0" layoutY="19.0" text="Product ID" />
-                  <TextField fx:id="ProdID" editable="false" focusTraversable="false" layoutX="95.0" layoutY="14.0" prefHeight="31.0" prefWidth="116.0" />
                   <Label layoutX="351.0" layoutY="19.0" text="Name" />
                   <Label layoutX="29.0" layoutY="61.0" text="Quantity" />
                   <TextField fx:id="ItemName" layoutX="399.0" layoutY="14.0" prefWidth="200.0" />
@@ -40,7 +39,7 @@
                   <Button fx:id="Btn_Update" layoutX="251.0" layoutY="189.0" mnemonicParsing="false" onAction="#UpdateButtonHandler" prefWidth="70.0" text="Update" />
                   <Button fx:id="Btn_Search" layoutX="43.0" layoutY="241.0" mnemonicParsing="false" prefWidth="70.0" text="Search" />
                   <Button fx:id="Btn_Add" layoutX="167.0" layoutY="189.0" mnemonicParsing="false" onAction="#AddButtonHandler" prefWidth="70.0" text="Add" />
-                  <TextField fx:id="NameSearch" layoutX="132.0" layoutY="241.0" onAction="#SearchButtonHandler" prefHeight="31.0" prefWidth="229.0" promptText="Enter Item name to search for" />
+                  <TextField fx:id="NameSearch" layoutX="132.0" layoutY="241.0" prefHeight="31.0" prefWidth="229.0" promptText="Enter Item name to search for" />
                </children>
             </AnchorPane>
         </items>
