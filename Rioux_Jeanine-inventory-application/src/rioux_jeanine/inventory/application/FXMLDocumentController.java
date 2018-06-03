@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,15 +52,20 @@ public class FXMLDocumentController implements Initializable {
     private TableView InventTblView;
     
     ObservableList items;
+    int prodNum;
+    private static final NumberFormat currency = 
+      NumberFormat.getCurrencyInstance();
     
     @FXML
     private void AddButtonHandler(ActionEvent e)
-    {        
-        new InventoryDatabase().addItem(Integer.parseInt(ProdID.getText()), ItemName.getText(),
+    {       
+        System.out.println("Add handler entered");
+        new InventoryDatabase().addItem(ItemName.getText(),
                                         Description.getText(), Integer.parseInt(Count.getText()),
                                         SKU.getText(), Double.parseDouble(Cost.getText()));
+        System.out.println("Line 62 reached");
         fillTable();
-        ProdID.clear();
+        //ProdID.clear();
         ItemName.clear();
         Description.clear();
         Count.clear();
@@ -107,11 +113,13 @@ public class FXMLDocumentController implements Initializable {
     }// end private method filltable 
     
     @FXML
-    private void DeleteButtonHandler(ActionEvent e)
+    private void DeleteButtonHandler(ActionEvent e) throws SQLException
     {        
-        new InventoryDatabase().deleteItem(Integer.parseInt(ProdID.getText()));
+        
+        
+        new InventoryDatabase().deleteItem(prodNum);
         fillTable();
-        ProdID.clear();
+        //ProdID.clear();
         ItemName.clear();
         Description.clear();
         Count.clear();
@@ -144,19 +152,28 @@ public class FXMLDocumentController implements Initializable {
     
     
     @FXML
-    private void UpdateButtonHandler(ActionEvent e)
+    private void UpdateButtonHandler(ActionEvent e)// I haven't even started on this one
     {        
-        new InventoryDatabase().updateItem(Integer.parseInt(ProdID.getText()), ItemName.getText(),
-                                        Description.getText(), Integer.parseInt(Count.getText()),
+        //This method call goes to class InventoryDatabase.  I know the signature needs to match
+        //This is my biggest problem on all these methods.  There is an issue with the Product Id
+        //Since I don't want the user to access it, I have to handle it differently.  I removed the field and 
+        //that ultimately led me to getting Add to work.  But for update and delete, I need to access
+        // the data in that cell. Herein lies my main issue. 
+        new InventoryDatabase().updateItem(prodNum, ItemName.getText(), Description.getText(), 
+                                        Integer.parseInt(Count.getText()),
                                         SKU.getText(), Double.parseDouble(Cost.getText()));
+        
+        //This calls the above method to repopulate the TableView 
         fillTable();
-        ProdID.clear();
+
+        //These just clear out the entry fields
         ItemName.clear();
         Description.clear();
         Count.clear();
         SKU.clear();
         Cost.clear();
-        InventTblView.requestFocus();
+        
+        //InventTblView.requestFocus();
     }
     
    
@@ -176,7 +193,7 @@ public class FXMLDocumentController implements Initializable {
                     int val = tablePosition.getRow();
                     Object row = items.get(val);
                     String[] a = row.toString().split("[,]|[\\]]");
-                    ProdID.setText(a[0].trim());
+                   // ProdID.setText(a[0].trim());
                     ItemName.setText(a[1].trim());
                     Description.setText(a[2].trim());
                     Count.setText(a[3].trim());
@@ -185,7 +202,7 @@ public class FXMLDocumentController implements Initializable {
                 }
                 
 
-        
+        /**  These were put in automatically, it doesn't look like I need them
                 assert ItemName != null : "fx:id=\"ItemName\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
                 assert Count != null : "fx:id=\"Count\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
                 assert Btn_Export != null : "fx:id=\"Btn_Export\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
@@ -198,6 +215,10 @@ public class FXMLDocumentController implements Initializable {
                 assert SKU != null : "fx:id=\"SKU\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
                 assert Cost != null : "fx:id=\"Cost\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
                 assert Btn_Del != null : "fx:id=\"Btn_Del\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
+            
+            * 
+            **/
+            
             }//end method changed
             });//end listener fillTable
     }// end method initialize
