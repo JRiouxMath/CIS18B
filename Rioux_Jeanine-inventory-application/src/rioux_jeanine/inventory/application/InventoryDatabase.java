@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.*;
+import java.util.regex.Pattern;
 
 public class InventoryDatabase {
     
@@ -15,9 +17,11 @@ public class InventoryDatabase {
     
     static final String SELECT_QUERY = "SELECT * FROM Inventory";
     static final String DELETE_QUERY = "DELETE FROM Inventory WHERE ID=?";
-    static final String UPDATE_QUERY = "UPDATE Inventory SET ITEMNAME=?, DESCRIPTION=?, COUNT=?, SKU=?, COST=?, WHERE ID=?";
+    static final String UPDATE_QUERY = "UPDATE Inventory SET ITEMNAME=?, DESCRIPTION=?, COUNT=?, SKU=?, COST=? WHERE ID=?";
     
     ResultSet resSet = null;
+    
+    private int max_char_IName, max_char_Desc, max_char_Count, max_char_sku, max_char_cost;
     
     InventoryDatabase()
     {
@@ -26,6 +30,12 @@ public class InventoryDatabase {
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             PreparedStatement selectAllItems = connection.prepareStatement(SELECT_QUERY);
             resSet = selectAllItems.executeQuery();
+            
+            max_char_IName = resSet.getMetaData().getColumnDisplaySize(2)-1;
+            max_char_Desc = resSet.getMetaData().getColumnDisplaySize(3);
+           // max_char_Count = resSet.getMetaData().getPrecision(5);
+            max_char_sku = resSet.getMetaData().getColumnDisplaySize(5);
+            //max_char_cost  = resSet.getMetaData().getPrecision(6);
         }//end try
         catch (SQLException sqlException)
         {
@@ -35,19 +45,23 @@ public class InventoryDatabase {
         
     }// end constructor
     
-    public void addItem( String itemname, String description, int count, String Sku, double cost )
+    public void addItem(String itemname, String description, int count, String Sku, double cost )
     {
         try
         {
+
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             PreparedStatement insertItem = connection.prepareStatement("INSERT INTO Inventory (ITEMNAME, DESCRIPTION, COUNT, SKU, COST) VALUES (?,?,?,?,?)");
-           // insertItem.setInt(1, id);
+            if( itemname.length() > max_char_IName) itemname = itemname.substring(0, max_char_IName);
             insertItem.setString(1,itemname);
+            if( description.length() > max_char_Desc) description = description.substring(0, max_char_Desc);
             insertItem.setString(2,description);
-            insertItem.setInt(3,count);
+                insertItem.setInt(3,count);
+            if( Sku.length() > max_char_sku) Sku = Sku.substring(0, max_char_sku);
             insertItem.setString(4,Sku);
             insertItem.setDouble(5, cost);
-            insertItem.executeUpdate();            
+            insertItem.executeUpdate();  
+        
         }// end try block
         catch(SQLException sqlException)
         {
@@ -59,17 +73,13 @@ public class InventoryDatabase {
     
    public void deleteItem(int id)
     {
-        System.out.println ("deleteItem entered with paramter: " + id);
         try
         {
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             PreparedStatement deleteItem = connection.prepareStatement(DELETE_QUERY);
-            int toPass = resSet.getInt("ID");
-            deleteItem.setInt(1,toPass);
-            deleteItem.executeUpdate();   
             
-            System.out.println("leaving deleteItem");
-                    
+            deleteItem.setInt(1,id);
+            deleteItem.executeUpdate();           
         }
         catch(SQLException sqlException)
         {
@@ -78,17 +88,24 @@ public class InventoryDatabase {
         }
     } // end method deleteItem
    
-   public void updateItem(int ProdID, String Name, String Description, int Count, String SKU, double Cost)
+   public void exportTable() throws SQLException
+   {
+       System.out.println("It's a sad day when I give myself permission to stop working.");
+   }// end method to export table
+   
+   public void updateItem(int ProdID, String itemname, String description, int Count, String Sku, double Cost)
     {
         try
         {
             Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             PreparedStatement updateItem = connection.prepareStatement(UPDATE_QUERY);
-            //updateItem.setInt(1, P_id);
-            updateItem.setString(1,Name);
-            updateItem.setString(2,Description);
+             if( itemname.length() > max_char_IName) itemname = itemname.substring(0, max_char_IName);
+            updateItem.setString(1,itemname);
+             if( description.length() > max_char_Desc) description = description.substring(0, max_char_Desc);
+            updateItem.setString(2,description);
             updateItem.setInt(3,Count);
-            updateItem.setString(4,SKU);
+             if( Sku.length() > max_char_sku) Sku = Sku.substring(0, max_char_sku);
+            updateItem.setString(4,Sku);
             updateItem.setDouble(5, Cost);
             updateItem.setInt(6, ProdID);
             updateItem.executeUpdate();            
@@ -105,6 +122,16 @@ public class InventoryDatabase {
         if (resSet != null) return resSet;
         return new InventoryDatabase().resSet;
     }// end method getResults
+    
+    public static String getUsername()
+    {
+        return USERNAME;
+    }// end username getter
+    
+    public static String getPassword()
+    {
+        return PASSWORD;
+    }// end password getter
     
    
 }

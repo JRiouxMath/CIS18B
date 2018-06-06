@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="493.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rioux_jeanine.inventory.application.LoginSceneController">
+   <children>
+      <Button fx:id="LoginButn" layoutX="216.0" layoutY="200.0" mnemonicParsing="false" onAction="#loginButnHandler" text="Log in" />
+      <Label layoutX="69.0" layoutY="32.0" text="Username" />
+      <Label layoutX="69.0" layoutY="110.0" text="Password" />
+      <TextField fx:id="UsernameField" layoutX="154.0" layoutY="27.0" />
+      <TextField fx:id="PasswordField" layoutX="154.0" layoutY="105.0" />
+      <TextField fx:id="Messages" alignment="CENTER" editable="false" focusTraversable="false" layoutX="41.0" layoutY="303.0" opacity="0.98" prefHeight="44.0" prefWidth="407.0" promptText=" Log in to access database">
+         <opaqueInsets>
+            <Insets bottom="5.0" />
+         </opaqueInsets>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

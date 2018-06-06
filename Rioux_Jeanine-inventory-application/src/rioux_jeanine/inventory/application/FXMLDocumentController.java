@@ -37,10 +37,10 @@ import javafx.util.Callback;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private TextField ItemName, Count, ProdID, SKU, Cost, NameSearch;
+    private TextField ItemName, Count, ProdID, SKU, Cost, Messages;
 
     @FXML
-    private Button Btn_Export, Btn_Add, Btn_Search, Btn_Update, Btn_Del;
+    private Button Btn_Export, Btn_Add, Btn_Update, Btn_Del;
 
     @FXML
     private Label label;
@@ -53,25 +53,42 @@ public class FXMLDocumentController implements Initializable {
     
     ObservableList items;
     int prodNum;
-    private static final NumberFormat currency = 
-      NumberFormat.getCurrencyInstance();
+    ResultSet rs = null;
     
     @FXML
     private void AddButtonHandler(ActionEvent e)
-    {       
-        System.out.println("Add handler entered");
-        new InventoryDatabase().addItem(ItemName.getText(),
-                                        Description.getText(), Integer.parseInt(Count.getText()),
-                                        SKU.getText(), Double.parseDouble(Cost.getText()));
-        System.out.println("Line 62 reached");
-        fillTable();
-        //ProdID.clear();
-        ItemName.clear();
-        Description.clear();
-        Count.clear();
-        SKU.clear();
-        Cost.clear();
-        InventTblView.requestFocus();
+    {  
+        
+        try //Ensuring entry in count can be parsed as an Int
+        {
+            Integer.parseInt(Count.getText());
+            try
+            {
+                Double.parseDouble(Cost.getText());
+            
+  
+                new InventoryDatabase().addItem(ItemName.getText(),
+                                                Description.getText(), Integer.parseInt(Count.getText()),
+                                                SKU.getText(), Double.parseDouble(Cost.getText()));
+                fillTable();
+
+                ItemName.clear();
+                Description.clear();
+                Count.clear();
+                SKU.clear();
+                Cost.clear();
+                InventTblView.requestFocus();
+                Messages.setText("Item added to database");
+            }// close try parseDouble
+            catch (NumberFormatException exc)
+            {
+               Messages.setText("Cost must be a floating point number");
+            }//close catch parseDouble
+        }//close try parseInt
+        catch(NumberFormatException ex)
+        {
+              Messages.setText("Count must be an Integer");
+        }//close catch parseInt
     }// end Add BTN Handler
     
      private void fillTable()
@@ -114,51 +131,30 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void DeleteButtonHandler(ActionEvent e) throws SQLException
-    {        
-        
-        
+    {  
+        //int curRow = rs.getRow();
         new InventoryDatabase().deleteItem(prodNum);
         fillTable();
-        //ProdID.clear();
+
         ItemName.clear();
         Description.clear();
         Count.clear();
         SKU.clear();
         Cost.clear();
         InventTblView.requestFocus();
+        Messages.setText("Item deleted from database.");
     } // end method DeleteButtonHandler
     
     @FXML
-    void SearchButtonHandler(ActionEvent event) { //this is all wrong.  copied from regex, still trying to adapt
-        
-/**        AltText.setText(FindItem(NameSearch.getText(), ItemName.getText(), ReplText.getText()));
-    }// end method SearchButtonHandler.  calls private method Replace String.
-    
-     private String FindItem (String SName, String IName)//This isn't searching all rows
+    private void ExportButtonHandler(ActionEvent e)
     {
-        Pattern regExPatt = Pattern.compile(SName);       
-        Matcher regExMatch = regExPatt.matcher(IName);
-        
-        if (regExMatch.find())
-        {
-            //Here is where it will populate like UPdateItem
-        }//end if find
-        
-        return origText + "\nNo replacement made";// probably delete and have void return?
-    }// end Method ReplaceString  only used by SearchButtonHandler
-    * 
-    **88888888888888 --------------Two methods commented out here, watch for extra close }
-    **/}
+            Messages.setText("This button had just one job.  But I'm too tired to work.");
+    }//end Export handler
     
     
     @FXML
     private void UpdateButtonHandler(ActionEvent e)// I haven't even started on this one
     {        
-        //This method call goes to class InventoryDatabase.  I know the signature needs to match
-        //This is my biggest problem on all these methods.  There is an issue with the Product Id
-        //Since I don't want the user to access it, I have to handle it differently.  I removed the field and 
-        //that ultimately led me to getting Add to work.  But for update and delete, I need to access
-        // the data in that cell. Herein lies my main issue. 
         new InventoryDatabase().updateItem(prodNum, ItemName.getText(), Description.getText(), 
                                         Integer.parseInt(Count.getText()),
                                         SKU.getText(), Double.parseDouble(Cost.getText()));
@@ -172,8 +168,8 @@ public class FXMLDocumentController implements Initializable {
         Count.clear();
         SKU.clear();
         Cost.clear();
-        
-        //InventTblView.requestFocus();
+        InventTblView.requestFocus();
+        Messages.setText("Item updated.");
     }
     
    
@@ -193,34 +189,19 @@ public class FXMLDocumentController implements Initializable {
                     int val = tablePosition.getRow();
                     Object row = items.get(val);
                     String[] a = row.toString().split("[,]|[\\]]");
-                   // ProdID.setText(a[0].trim());
+                    
+                    //ProdID = Integer.parseInt(a[0].substring(1));
+                    //ProdID.setText(a[0].trim());
+                    prodNum = Integer.parseInt(a[0].substring(1).trim());
                     ItemName.setText(a[1].trim());
                     Description.setText(a[2].trim());
                     Count.setText(a[3].trim());
                     Cost.setText(a[4].trim());
                     SKU.setText(a[5].trim());
                 }
-                
-
-        /**  These were put in automatically, it doesn't look like I need them
-                assert ItemName != null : "fx:id=\"ItemName\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Count != null : "fx:id=\"Count\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Btn_Export != null : "fx:id=\"Btn_Export\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Btn_Add != null : "fx:id=\"Btn_Add\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Btn_Search != null : "fx:id=\"Btn_Search\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert label != null : "fx:id=\"label\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Btn_Update != null : "fx:id=\"Btn_Update\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert ProdID != null : "fx:id=\"ProdID\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Description != null : "fx:id=\"Description\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert SKU != null : "fx:id=\"SKU\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Cost != null : "fx:id=\"Cost\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-                assert Btn_Del != null : "fx:id=\"Btn_Del\" was not injected: check your FXML file 'FXMLDocument.fxml'.";
-            
-            * 
-            **/
-            
+          
             }//end method changed
-            });//end listener fillTable
+        });//end listener fillTable
     }// end method initialize
 
 }// end class Controller
